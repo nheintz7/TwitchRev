@@ -19,7 +19,6 @@ def getURL():  # Get tokens
     output = subprocess.Popen(["livestreamer", "twitch.tv/zappingoombaz", "-j"], stdout=subprocess.PIPE).communicate()[0]
     return json.loads(output)['streams']['worst']['url']  # Parse json and return the URL parameter
 
-
 def build():  # Builds a set of tokens, aka viewers
     global numberOfSockets
     global numberOfViewers
@@ -47,17 +46,18 @@ def view():  # Opens connections to send views
 if __name__ == '__main__':
     for i in range(0, builderThreads):
         threading.Thread(target=build).start()
-
+    print 'here1'
     while True:
         while (numberOfViewers != numberOfSockets):  # Wait until sockets are built
             time.sleep(1)
-
+        print 'here2'
         q = Queue(concurrent * 2)
         for i in range(concurrent):
             try:
                 t = threading.Thread(target=view)
                 t.daemon = True
                 t.start()
+                print 'here3'
             except:
                 print 'thread error'
         try:
