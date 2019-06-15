@@ -6,8 +6,8 @@ import threading
 import time
 from Queue import Queue
 
-numberOfViewers = int(sys.argv[1])
-builderThreads = int(sys.argv[2])
+numberOfViewers = int(100)
+builderThreads = int(10)
 startTime = time.time()
 numberOfSockets = 0
 concurrent = 25
@@ -16,7 +16,7 @@ urlsUsed = []
 
 
 def getURL():  # Get tokens
-    output = subprocess.Popen(["Quin69", "twitch.tv/Quin69", "-j"], stdout=subprocess.PIPE).communicate()[0]
+    output = subprocess.Popen(["livestreamer", "twitch.tv/zappinkoopaz", "-j"], stdout=subprocess.PIPE).communicate()[0]
     return json.loads(output)['streams']['worst']['url']  # Parse json and return the URL parameter
 
 
